@@ -1,0 +1,45 @@
+h1 {
+    color: white;
+    font-family: 'Great Vibes', cursive;
+    font-size: 60px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.prayer{
+    /*border:1px solid red;*/
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 
+}
+
+
+}
+
+html {}
+
+body {
+    background-image: url('../img/background.png');
+    background-repeat: no-repeat;
+}
+
+p {
+    color: white;
+}
+
+.tabs {
+    background-color: #EAEAEA;
+    height: 350px;
+    margin-right: 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    /*margin-top:100px;*/
+}
+
+.img {
+    min-height: 200px;
+    max-height: 445px;
+    /*margin-left:6.5px;*/
+    margin-top: 10px;
+    border:1px solid blue;
+}

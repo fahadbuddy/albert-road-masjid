@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Prayer Timings</title>
+  <!-- Bootstrap -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <link rel="stylesheet" type="text/css" href="css/css.css" />
+  <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Italianno|Playfair+Display" rel="stylesheet">
+  <script type='text/javascript' src='js/tabletop1.3.4.js'></script>
+</head>
+
+<body>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      //Load Spreadsheet
+      //FULL URL: https://docs.google.com/spreadsheets/d/1trAPRZp2qrE4FvvJTRZXbEmDGHlMIXfWmzbCUheTbVs/edit#gid=0
+      var URL = "1trAPRZp2qrE4FvvJTRZXbEmDGHlMIXfWmzbCUheTbVs"
+      Tabletop.init({
+        key: URL
+        , callback: showInfo
+        , simpleSheet: true
+      });
+    })
+
+    function findPrayerTime(allTimes, dateToSearch) {
+      var result = allTimes.filter(function (value) {
+        if (value.date === dateToSearch) {
+          console.log("found " + dateToSearch + "in the spreadsheet");
+          return value;
+        }
+      });
+      if (result.length != 0) {
+        return result;
+      }
+      else {
+        alert('No Data Found for' + dateToSearch);
+        throw "Error: Unable to find any data for " + dateToSearch;
+      }
+    }
+
+    function getAllDates(data) {
+      var selectOption = $("<option></option>").text("2016-11-10").attr("value", "2016-11-10");
+      $('#dataSelect').append(selectOption);
+    }
+
+    function getTodaysDate() {
+      var a = new Date();
+      return a.getUTCDate() + "/" + (a.getMonth() + 1) + "/" + a.getUTCFullYear();
+    }
+
+    function showInfo(data) {
+      console.log(data);
+      window.PRAYERTIMES = data;
+      var actualTime = findPrayerTime(data, getTodaysDate());
+      //var actualTime = findPrayerTime(data, "11/09/16");
+      $('#fajr').html(actualTime[0].fajr);
+      $('#zuhr').html(actualTime[0].zuhr);
+      $('#asr').html(actualTime[0].asr);
+      $('#maghrib').html(actualTime[0].maghib);
+      $('#isha').html(actualTime[0].isha);
+      //setup the options for dates
+      return data;
+    }
+  </script>
+  <div class="container">
+    <h1 class="text-center">Prayer Timings</h1>
+    <div class="row">
+      <div class="col-md-2 col-md-offset-1 tabs"> <img src="img/sky.jpg" class="img-rounded img-responsive img" style="">
+        <h3 class="text-center prayer">Fajr</h3>
+        <h3 class="text-center" id="fajr">4:30am</h3> </div>
+      <div class="col-md-2 tabs"> <img src="img/sky.jpg" class="img-rounded img-responsive img">
+        <h3 class="text-center">Zuhar</h3>
+        <h3 class="text-center" id="zuhr">12:00pm</h3> </div>
+      <div class="col-md-2 tabs"> <img src="img/sky.jpg" class="img-rounded img-responsive img">
+        <h3 class="text-center">Asr</h3>
+        <h3 class="text-center" id="asr">6:00pm</h3> </div>
+      <div class="col-md-2 tabs"> <img src="img/sky.jpg" class="img-rounded img-responsive img">
+        <h3 class="text-center">Maghrib</h3>
+        <h3 class="text-center" id="maghrib">9:00pm</h3> </div>
+      <div class="col-md-2 tabs col-md-offset-0"> <img src="img/sky.jpg" class="img-rounded img-responsive img">
+        <h3 class="text-center">Isha</h3>
+        <h3 class="text-center" id="isha">10:30pm</h3> </div>
+    </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
